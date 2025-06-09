@@ -20,6 +20,17 @@
  })
 });
 
+ // Project Type
+ const ProjectType = new GraphQLObjectType({
+    name: 'Project',
+    fields: () => ({
+        id: { type: GraphQLID },
+        name: { type: GraphQLString },
+        description: { type: GraphQLString },
+        status: { type: GraphQLString } 
+ })
+});
+
 // Define the queries clients can make to the API
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
@@ -37,6 +48,20 @@ const RootQuery = new GraphQLObjectType({
             // Return the clients array from sampleData.js
             resolve(parent, args){  
                 return clients;
+            }
+        },
+        // Define queries that return project data
+        project: {
+            type: ProjectType,
+            args: { id: { type: GraphQLID } },
+            resolve(parent, args) {
+                return projects.find(project => project.id === args.id);
+            }
+        },
+        projects: {
+            type: new GraphQLList(ProjectType), 
+            resolve(parent, args){  
+                return projects;
             }
         }
     }

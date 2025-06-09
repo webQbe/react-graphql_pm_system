@@ -170,3 +170,91 @@
             }
         }
         ```
+
+7. Run query to request name field of all projects:
+    ```
+    {
+        projects {
+                    name
+                }
+    }
+    ```
+    - Response:
+        ```
+        {
+            "data": {
+                "projects": [
+                                {
+                                    "name": "eCommerce Website"
+                                },
+                                {
+                                    "name": "Dating App"
+                                },
+                                {
+                                    "name": "SEO Project"
+                                },
+                                {
+                                    "name": "Design Prototype"
+                                },
+                                {
+                                    "name": "Auction Website"
+                                }
+                ]
+            }
+        }
+        ```
+
+8. Run query to request `name`, `status`, and `description` fields of all projects:
+    ```
+    {
+        projects {
+                     name,
+                     status,
+                     description
+                }
+    }
+    ```
+    - Response:
+        ```
+        {
+            "data": {
+                "projects": [
+                                {
+                                    "name": "eCommerce Website",
+                                    "status": "In Progress",
+                                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu."
+                                },
+                                {
+                                  ...
+                                },
+                                {
+                                   ...
+                                },
+                ]
+            }
+        }
+        ```
+
+
+9. Run query to request `name`, `status`, and `description` fields of a single project:
+    ```
+    {
+        project(id: "1") {
+                            name,
+                            status,
+                            description
+                        }
+    }
+    ```
+    - Response:
+        ```
+        {
+            "data": {
+                "project": {
+                            "name": "eCommerce Website",
+                            "status": "In Progress",
+                            "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu."
+                }
+            }
+        }
+        ```
