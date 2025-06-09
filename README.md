@@ -103,7 +103,7 @@
                     }
         }
         ```
-5. Run query to request all clients:
+5. Run query to request all fields of all clients:
     ```
     {
         clients {
@@ -134,6 +134,38 @@
                 {...},
                 {...}.
                 ...
+                ]
+            }
+        }
+        ```
+6. Run query to request name field of all clients:
+    ```
+    {
+        clients {
+                    name
+                }
+    }
+    ```
+    - Response:
+        ```
+        {
+            "data": {
+                "clients": [
+                                {
+                                    "name": "Tony Stark"
+                                },
+                                {
+                                    "name": "Natasha Romanova"
+                                },
+                                {
+                                    "name": "Thor Odinson"
+                                },
+                                {
+                                    "name": "Steve Rogers"
+                                },
+                                {
+                                    "name": "Bruce Banner"
+                                }
                 ]
             }
         }
