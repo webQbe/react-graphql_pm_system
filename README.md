@@ -236,7 +236,7 @@
         ```
 
 
-9. Run query to request `name`, `status`, and `description` fields of a single project:
+9. Run query to request `name`, `status`, and `description` fields of a single `project`:
     ```
     {
         project(id: "1") {
@@ -255,6 +255,37 @@
                             "status": "In Progress",
                             "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu."
                 }
+            }
+        }
+        ```
+
+10. Run query to request the fields of a single `project` and the `name` and `id` of its `client`:
+    ```
+    {
+        project(id: "1") {
+                            name,
+                            status,
+                            description,
+                            client {
+                                     name,
+                                     id
+                                }
+                        }
+    }
+    ```
+    - Response:
+        ```
+        {
+            "data": {
+                "project": {
+                    "name": "eCommerce Website",
+                    "status": "In Progress",
+                    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu.",
+                    "client": {
+                                "name": "Tony Stark",
+                                "id": "1"
+                            }
+                    }
             }
         }
         ```

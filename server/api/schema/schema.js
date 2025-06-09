@@ -27,7 +27,15 @@
         id: { type: GraphQLID },
         name: { type: GraphQLString },
         description: { type: GraphQLString },
-        status: { type: GraphQLString } 
+        status: { type: GraphQLString },
+        /* Find the corresponding client in the clients array */
+        client: { // Allow GraphQL to also fetch the associated client
+            type: ClientType,
+            resolve(parent, args) { // `parent` is the current project object that GraphQL is resolving
+                return clients.find(client => client.id === parent.clientId);
+                /* parent.clientId refers to the ID of the client associated with this project */
+            }
+        }
  })
 });
 
