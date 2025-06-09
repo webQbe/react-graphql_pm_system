@@ -45,7 +45,7 @@
     - `yarn start` or `npm start` runs the app using plain Node.js.
     - `yarn dev` or `npm run dev` runs the app using Nodemon, which auto-restarts the server when file changes are detected (useful in development).
 
-6.  Create  `server/.env` file to store environment-specific variables:
+6.  Create  `server/.env` file to store environment-specweific variables:
     ```
     NODE_ENV=development
     PORT=5000
@@ -57,3 +57,7 @@
     .env
     node_modules
     ```
+
+### 2. Test GraphQL Queries
+1. Run the Express server with `npm run dev`
+2. Open GraphiQL UI in the browser: `http://localhost:5000/graphql`
