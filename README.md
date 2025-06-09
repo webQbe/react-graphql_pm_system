@@ -61,3 +61,80 @@
 ### 2. Test GraphQL Queries
 1. Run the Express server with `npm run dev`
 2. Open GraphiQL UI in the browser: `http://localhost:5000/graphql`
+3. Run query to get only the client's `name`:
+    ```
+    {
+        client(id: "1"){
+                            name
+                    }
+    }
+    ```
+    - Response:
+        ```
+        {
+            "data": {
+                "client": {
+                            "name": "Tony Stark"
+                        }
+            }
+        }
+        ```
+4. Run query to request all fields:
+    ```
+    {
+        client(id: "1"){
+                            id,
+                            name,
+                            email,
+                            phone
+                        }
+    }
+    ```
+    - Response:
+        ```
+        {
+            "data": {
+                        "client": {
+                                    "id": "1",
+                                    "name": "Tony Stark",
+                                    "email": "ironman@gmail.com",
+                                    "phone": "343-567-4333"
+                                }
+                    }
+        }
+        ```
+5. Run query to request all clients:
+    ```
+    {
+        clients {
+                    id,
+                    name,
+                    email,
+                    phone
+                }
+    }
+    ```
+    - Response:
+        ```
+        {
+            "data": {
+                "clients": [
+                {
+                    "id": "1",
+                    "name": "Tony Stark",
+                    "email": "ironman@gmail.com",
+                    "phone": "343-567-4333"
+                },
+                {
+                    "id": "2",
+                    "name": "Natasha Romanova",
+                    "email": "blackwidow@gmail.com",
+                    "phone": "223-567-3322"
+                },
+                {...},
+                {...}.
+                ...
+                ]
+            }
+        }
+        ```
