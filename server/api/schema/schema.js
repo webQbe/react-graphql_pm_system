@@ -8,7 +8,8 @@
          GraphQLID, 
          GraphQLString, 
          GraphQLSchema, 
-         GraphQLList 
+         GraphQLList,
+         GraphQLNonNull
         } = require('graphql');
 
  // Defines what a Client object looks like in GraphQL
@@ -83,7 +84,37 @@ const RootQuery = new GraphQLObjectType({
     }
 });
 
+// Create root Mutation object
+const mutation = new GraphQLObjectType({
+    name: 'Mutation',
+    fields: {
+        addClient: { /* `addClient` Field */
+            type: ClientType, // return newly created client object
+            args: { 
+                    /* Required input fields */
+                    name: { type: GraphQLNonNull(GraphQLString) },
+                    email: { type: GraphQLNonNull(GraphQLString) },
+                    phone: { type: GraphQLNonNull(GraphQLString) },
+                    /* GraphQLNonNull means all fields must be provided */
+            },
+            // resolve() runs when mutation is called
+            resolve(parent, args) { 
+                // Create new instance of `Client` Mongoose model using `args` values 
+                const client = new Client({
+                    name: args.name,
+                    email: args.email,
+                    phone: args.phone,
+                });
+
+                // Save the instance to MongoDB and return saved object
+                return client.save();
+            },
+        },
+    },
+});
+
 // Export the Schema
 module.exports = new GraphQLSchema({
-    query: RootQuery
+    query: RootQuery,
+    mutation  // Add mutation capabilities
 })

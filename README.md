@@ -328,3 +328,36 @@
         ```
 15. Create folder and file: `server/api/config/db.js`
 16. Run the server and check `MongoDB Connected: ....` is logged
+
+
+### 4. Test GraphQL Mutations
+1. Run the Express server with `npm run dev`
+2. Open GraphiQL UI in the browser: `http://localhost:5000/graphql`
+3. Run **mutation** to add a new client:
+    ```
+    mutation {
+        addClient(name: "Tony Stark", email: "ironman@gmail.com", phone: "555-555-5555"){
+            id
+            name
+            email
+            phone
+        }
+    }
+    ```
+    - Response:
+        ```
+        {
+            "data": {
+                "addClient": {
+                                "id": "68485aa62d3bb8d863ce475c",
+                                "name": "Tony Stark",
+                                "email": "ironman@gmail.com",
+                                "phone": "555-555-5555"
+                             }
+            }
+        }
+        ```
+4. Open **MongoDB Compass**
+    1. Connect to MongoDB cluster
+    2. Select your database `pm_system` > `clients` (model)
+    3. See the new client you added
