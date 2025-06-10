@@ -52,7 +52,7 @@
     ```
     - `NODE_ENV`: Conventionally used to define the environment *(e.g., 'development', 'production').*
     - `PORT`: Used in `index.js` to determine which port the server should run on.
-7. Create `server/.gitignore` file and exclude `.env` file and `node_modules` folder from the git repository:
+7. Create `server/.gitignore` file to exclude `.env` file and `node_modules` folder from the git repository:
     ```
     .env
     node_modules
@@ -289,3 +289,42 @@
             }
         }
         ```
+
+### 3. Setup MongoDB
+
+1. Log in to MongoDB Cloud: `https://cloud.mongodb.com`
+2. Click on **`mongodb_basics`** dropdown and select **New Project**
+    1. Name Your Project: `PM System`
+    2. **Create Project**
+3. **Create Cluster**
+    1. Choose **Free** plan
+    2. **Create Deployment**
+4. Copy database user's credentials > **Create Database User** > Close
+5. In **Cluster0** > Click **Add data** 
+6. In **Add Data Options** > **Create Dataset** > **Create Database on Atlas** > **START**
+7. In **Create Database on Atlas** :
+    1. Enter a name for your new database : `pm_system`
+    2. Enter a name for your new collection : `clients`
+    3. **Create Database**
+8. Download and Install **MongoDB Compass**
+9. Go back to **Database** > **Overview**
+10. Click **Connect** > Add current IP address
+11. Select **Compass** option and copy the **connection string**
+12. Open **MongoDB Compass** > **Add New Connection**
+    1. Enter your **connection string** to the URI section
+    2. Edit the **connection string**:
+        1. `mongodb+srv://<username>:<db_password>@cluster0.z7eoin2.mongodb.net/<database_name>`
+        2. Replace `<username>`, `<password>` and `<database_name>`
+    3. Click **Save & Connect**
+    4. Open your database `pm_system` and `clients` collection
+13. Go back to **Database** > **Overview** > **Connect**
+    1. Select **Connect to your application** > **Drivers**
+    2. Copy the connection string
+14. Go back to VSCode 
+    1. Open `server/.env` file
+    2. Add line with connection string:
+        ```
+        MONGO_URI=mongodb+srv://<username>:<db_password>@cluster0.z7eoin2.mongodb.net/<database_name>?retryWrites=true&w=majority&appName=Cluster0
+        ```
+15. Create folder and file: `server/api/config/db.js`
+16. Run the server and check `MongoDB Connected: ....` is logged
