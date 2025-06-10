@@ -1,7 +1,9 @@
  /* GraphQL Schema */
 
- // Imports & Setup
- const { projects, clients } = require('../sampleData');
+ // Mongoose models
+ const Project = require('../models/Project');
+ const Client = require('../models/Client');
+
  const { GraphQLObjectType, 
          GraphQLID, 
          GraphQLString, 
@@ -31,9 +33,11 @@
         /* Find the corresponding client in the clients array */
         client: { // Allow GraphQL to also fetch the associated client
             type: ClientType,
-            resolve(parent, args) { // `parent` is the current project object that GraphQL is resolving
-                return clients.find(client => client.id === parent.clientId);
-                /* parent.clientId refers to the ID of the client associated with this project */
+            resolve(parent, args) { 
+                // Fetch corresponding Client document from MongoDB
+                return Client.findById(parent.clientId); 
+                /* `parent` is the current project object that GraphQL is resolving
+                    `parent.clientId` refers to the ID of the client associated with this project */
             }
         }
  })
@@ -47,15 +51,17 @@ const RootQuery = new GraphQLObjectType({
         client:{
             type: ClientType,
             args: { id: { type: GraphQLID } },
-            resolve(parent, args) { // fetch the data (from the clients array here)
-                return clients.find(client => client.id === args.id);
+            resolve(parent, args) {
+                // Fetch a single client by _id from MongoDB
+                return Client.findById(args.id);
             }
         },
         clients: {
             type: new GraphQLList(ClientType), // Return an array of objects shaped like ClientType
             // Return the clients array from sampleData.js
             resolve(parent, args){  
-                return clients;
+                // Fetch all clients from MongoDB
+                return Client.find();
             }
         },
         // Define queries that return project data
@@ -63,13 +69,15 @@ const RootQuery = new GraphQLObjectType({
             type: ProjectType,
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
-                return projects.find(project => project.id === args.id);
+                // Fetch a single project by _id from MongoDB
+                return Project.findById(args.id);
             }
         },
         projects: {
             type: new GraphQLList(ProjectType), 
             resolve(parent, args){  
-                return projects;
+                // Fetch all projects from MongoDB
+                return Project.find();
             }
         }
     }

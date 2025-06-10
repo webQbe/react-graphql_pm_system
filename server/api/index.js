@@ -1,6 +1,6 @@
 /* Main Server File */
 const express = require('express');     // Import Express
-const colors = require('colors');       // For styling success message
+const colors = require('colors');       // For styling success message in config/db.js
 require('dotenv').config();             // Load environment variables with dotenv
 const { graphqlHTTP } = require('express-graphql');
 const schema = require('./schema/schema');
