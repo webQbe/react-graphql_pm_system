@@ -331,6 +331,8 @@
 
 
 ### 4. Test GraphQL Mutations
+
+#### 1. Add a new client
 1. Run the Express server with `npm run dev`
 2. Open GraphiQL UI in the browser: `http://localhost:5000/graphql`
 3. Run **mutation** to add a new client:
@@ -361,3 +363,49 @@
     1. Connect to MongoDB cluster
     2. Select your database `pm_system` > `clients` (model)
     3. See the new client you added
+
+
+#### 2. Delete a client
+1. Run mutation on GraphiQL:
+    ```
+    mutation {
+        deleteClient(id: "68497b1ac57003ca5ee27b43"){
+            name
+        }
+    }
+    ```
+    - Response:
+        ```
+        {
+            "data": {
+
+                    "deleteClient": {
+                                        "name": "Test"
+                                    }
+
+            }
+        }
+        ```
+2. Run a query to fetch all clients and verify client `Test` is deleted:
+    ```
+    {
+        clients {
+                    name
+                }
+    }
+    ```
+    - Response:
+        ```
+        {
+            "data": {
+                "clients": [
+                    {
+                        "name": "Tony Stark"
+                    },
+                    {
+                        "name": "Peter Parker"
+                    }
+                ]
+            }
+        } 
+        ```   

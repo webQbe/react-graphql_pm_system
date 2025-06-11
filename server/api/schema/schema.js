@@ -88,7 +88,8 @@ const RootQuery = new GraphQLObjectType({
 const mutation = new GraphQLObjectType({
     name: 'Mutation',
     fields: {
-        addClient: { /* `addClient` Field */
+        /* Add a client */
+        addClient: {
             type: ClientType, // return newly created client object
             args: { 
                     /* Required input fields */
@@ -108,6 +109,17 @@ const mutation = new GraphQLObjectType({
 
                 // Save the instance to MongoDB and return saved object
                 return client.save();
+            },
+        },
+        /* Delete a client */
+        deleteClient:{
+            type: ClientType, // Tells GraphQL that mutation returns deleted Client object
+            args: { // accept a single required argument
+                id: { type: GraphQLNonNull(GraphQLID) } // MongoDB ObjectId of client to delete
+            },
+            resolve(parent, args){
+                // delete client with given ID from database
+                return Client.findByIdAndDelete(args.id); // Return deleted client object
             },
         },
     },
