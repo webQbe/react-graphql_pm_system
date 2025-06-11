@@ -417,7 +417,7 @@
     mutation {
         addProject(
                     name: "Mobile App", 
-                    descriptions: "This is the description", 
+                    description: "This is the description", 
                     status: new, 
                     clientId: "68485aa62d3bb8d863ce475c" 
                 )
@@ -469,3 +469,24 @@
             }
         }
         ```
+
+#### 4. Delete a project
+1. Run mutation on GraphiQL:
+    ```
+    mutation {
+        deleteProject(id: "68498e032824883cff810dba"){
+            id
+        }
+    }
+    ```
+    - Response:
+        ```
+        {
+            "data": {
+                "deleteProject": {
+                        "id": "68498e032824883cff810dba"
+                    }
+            }
+        }
+        ```
+2. Run a query to fetch all projects and verify the project is deleted
