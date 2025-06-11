@@ -162,7 +162,53 @@ const mutation = new GraphQLObjectType({
             resolve(parent, args){
                 return Project.findByIdAndDelete(args.id); 
             },
-        }
+        },
+        /* Update a project */
+        updateProject:{
+            type: ProjectType,
+            args: { // Accept project id and any fields you want to update 
+                id: { type: GraphQLNonNull(GraphQLID) },
+                name: { type: GraphQLString },
+                description: { type: GraphQLString },
+                status: { // must be one of the defined values
+                        type: new GraphQLEnumType({
+                            name: 'ProjectUpdateStatus', // renamed to avoid duplicate enum name
+                            values: {
+                                'new': { value: 'Not Started' },
+                                'progress': { value: 'In Progress' },
+                                'completed': { value: 'Completed' },
+                            }
+                        }),
+                        // No defaultValue 
+                    },
+            },
+            resolve(parent, args){
+                
+                /* Filter Out Undefined Fields */
+
+                const updates = {}; // Initialize empty object 
+
+                /* `args` contains values passed into the mutation */
+                if (args.name !== undefined) updates.name = args.name;
+                if (args.description !== undefined) updates.description = args.description;
+                if (args.status !== undefined) updates.status = args.status;
+
+                /*  
+                The conditionals check if each field was actually included in the       mutation request. If it was included, it adds that field to the updates object.
+
+                Fields that are not passed are ignored — they stay as they are in the DB.
+
+                This avoids overwriting undefined fields, which MongoDB would otherwise interpret as "clear this field." 
+                */
+
+                /* MongoDB Logic */
+                return Project.findByIdAndUpdate( 
+                    args.id,           // Locate project by id
+                    { $set: updates }, // Only update the fields in `updates`
+                    { new: true }      // Return updated document instead of the original
+                );
+            }
+        },
     },
 });
 

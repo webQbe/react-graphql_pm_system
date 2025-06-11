@@ -490,3 +490,31 @@
         }
         ```
 2. Run a query to fetch all projects and verify the project is deleted
+
+#### 5. Update a project
+1. Run mutation on GraphiQL:
+    ```
+    mutation {
+        updateProject(
+                        id: "684986408aac534aec78fa79", 
+                        name:"Mobile Application", 
+                        status:completed
+                     )
+        {
+            name
+            status
+        }
+    }
+    ```
+    - Response:
+        ```
+        {
+            "data": {
+                "updateProject": {
+                        "name": "Mobile Application",
+                        "status": "Completed"
+                    }
+            }
+        }
+        ``` 
+2. Run a query to fetch all projects and verify the project is updated
