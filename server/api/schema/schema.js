@@ -118,8 +118,13 @@ const mutation = new GraphQLObjectType({
             args: { // accept a single required argument
                 id: { type: GraphQLNonNull(GraphQLID) } // MongoDB ObjectId of client to delete
             },
-            resolve(parent, args){
-                // delete client with given ID from database
+            async resolve(parent, args){
+
+                // Remove all projects tied to this client first
+                await Project.deleteMany({ clientId: args.id });
+                /* deleteMany() is a Mongoose method that deletes all documents matching a condition. */
+
+                // Delete client with given ID from database
                 return Client.findByIdAndDelete(args.id); // Return deleted client object
             },
         },
