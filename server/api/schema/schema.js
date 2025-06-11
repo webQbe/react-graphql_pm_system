@@ -9,7 +9,8 @@
          GraphQLString, 
          GraphQLSchema, 
          GraphQLList,
-         GraphQLNonNull
+         GraphQLNonNull, 
+         GraphQLEnumType
         } = require('graphql');
 
  // Defines what a Client object looks like in GraphQL
@@ -121,6 +122,36 @@ const mutation = new GraphQLObjectType({
                 // delete client with given ID from database
                 return Client.findByIdAndDelete(args.id); // Return deleted client object
             },
+        },
+        /* Add a project */
+        addProject:{
+            type: ProjectType,
+            args: {
+                name: { type: GraphQLNonNull(GraphQLString) },
+                description: { type: GraphQLNonNull(GraphQLString) },
+                status: { // This field uses an Enum, which restricts input to: new, progress, completed
+                    type: new GraphQLEnumType({
+                        name: 'ProjectStatus',
+                        values: {
+                            'new': { value: 'Not Started' },
+                            'progress': { value: 'In Progress' },
+                            'completed': { value: 'Completed' },
+                        }
+                    }),
+                    defaultValue: 'Not Started', // The defaultValue: 'Not Started' ensures status is set even if omitted
+                },
+                clientId: { type: GraphQLNonNull(GraphQLID) },
+            },
+            resolve(parent, args){
+                const project = new Project({
+                    name: args.name,
+                    description: args.description,
+                    status: args.status,
+                    clientId: args.clientId,
+                });
+
+                return project.save();
+            }
         },
     },
 });

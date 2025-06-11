@@ -409,3 +409,63 @@
             }
         } 
         ```   
+
+#### 3. Add a new project
+
+1. Run mutation on GraphiQL:
+    ```
+    mutation {
+        addProject(
+                    name: "Mobile App", 
+                    descriptions: "This is the description", 
+                    status: new, 
+                    clientId: "68485aa62d3bb8d863ce475c" 
+                )
+        {
+            name
+            id
+        }
+    }
+    ```
+    - Response:
+        ```
+        {
+            "data": {
+                        "addProject": {
+                            "name": "Mobile App",
+                            "id": "684986408aac534aec78fa79"
+                        }
+                    }
+        }
+        ```
+
+2. Run query to fetch saved projects:
+    ```
+    {
+        projects {
+                    name
+                    status
+                    client {
+                            name
+                            email
+                        }
+            }
+    }
+    ```
+    - Response:
+        ```
+        {
+            "data": {
+                "projects": [
+                    {
+                        "name": "Mobile App",
+                        "status": "Not Started",
+                        "client": {
+                                    "name": "Tony Stark",
+                                    "email": "ironman@gmail.com"
+                                }
+                    }
+                ]
+            }
+        }
+        ```
