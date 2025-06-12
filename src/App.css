@@ -18,3 +18,9 @@ body {
   width: 30px;
   margin-right: 10px;
 }
+
+.btn {
+  /* Increase font size for all buttons */
+  font-size: 15px;
+  /* Bootstrap’s button classes (btn, btn-danger, btn-sm) handle color, size, padding, etc */
+}
