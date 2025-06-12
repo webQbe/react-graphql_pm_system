@@ -1,6 +1,7 @@
 /* Main Server File */
 const express = require('express');     // Import Express
 const colors = require('colors');       // For styling success message in config/db.js
+const cors = require('cors');           // For enabling CORS for Cross-Origin Requests 
 require('dotenv').config();             // Load environment variables with dotenv
 const { graphqlHTTP } = require('express-graphql');
 const schema = require('./schema/schema');
@@ -12,6 +13,8 @@ const app = express();
 
 
 connectDB(); // Establish MongoDB connection before server starts
+
+app.use(cors()); // Accept frontend requests
 
 // Connect the schema to a route using express-graphql middleware
 app.use('/graphql', graphqlHTTP({
