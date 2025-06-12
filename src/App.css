@@ -24,3 +24,18 @@ body {
   font-size: 15px;
   /* Bootstrap’s button classes (btn, btn-danger, btn-sm) handle color, size, padding, etc */
 }
+
+.sr-only {
+  /* Keep the element accessible to screen readers 
+     Make it invisible on the screen to users who don’t rely on assistive tech
+  */
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
