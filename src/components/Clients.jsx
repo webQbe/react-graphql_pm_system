@@ -1,18 +1,8 @@
 /* Fetching Clients via GraphQL */
-import { gql, useQuery } from  '@apollo/client'
+import { useQuery } from  '@apollo/client'
 import ClientRow from './ClientRow'
+import { GET_CLIENTS } from '../queries/clientQueries' // import GET_CLIENTS query 
 
-// GraphQL query definition
-const GET_CLIENTS = gql`
-                        query getClients {
-                            clients {
-                                id
-                                name
-                                email
-                                phone
-                            }
-                        }
-                    `
 
 const Clients = () => {
 
@@ -28,7 +18,6 @@ const Clients = () => {
     <>
       <h1>Clients</h1>
       {/* Render Full Table */}
-
       <table className="table table-hover mt-3">
         {/* Use Bootstrap’s table, table-hover, and mt-3 classes for styling */}
         <thead>
