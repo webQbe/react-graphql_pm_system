@@ -534,7 +534,7 @@
     1. Open terminal and run `npm install`
     2. Install packages:
         ```
-        npm i @apollo/client graphql react-router-dom react-icons     
+        npm i @apollo/client graphql react-router-dom react-icons react-bootstrap bootstrap     
         ```
 6. Delete: `public/vite.svg`, `src/assets`, `src/index.css`
     1. Remove `import './index.css'` from `src/main.jsx`

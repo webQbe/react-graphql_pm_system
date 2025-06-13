@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
 import Header from './components/Header'
 import Clients from './components/Clients'
+import AddClientModal from './components/AddClientModal'
 import './App.css' // for global and component styles
 
 // Replace existing data with incoming data 
@@ -45,6 +46,7 @@ function App() {
       <ApolloProvider client={client}> {/* wraps your app & injects the client into context */}
         <Header />                     {/* <Header /> component at the top */}
         <div className="container">    {/* centered container */}
+          <AddClientModal />
           <Clients />
         </div>
       </ApolloProvider>
