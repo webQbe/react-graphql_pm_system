@@ -59,3 +59,8 @@ body {
   background-color: #7430f9;
   opacity: 0.9;
 }
+
+/* Add space between button icon and label */
+.icon {
+  margin-right: 5px;
+}

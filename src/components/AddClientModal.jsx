@@ -1,5 +1,6 @@
 import { useState } from 'react' // for managing local component state
-import { Modal, Button } from 'react-bootstrap'; 
+import { Modal, Button } from 'react-bootstrap'
+import { FaUser } from 'react-icons/fa'
 
 
 const AddClientModal = () => {
@@ -13,10 +14,13 @@ const AddClientModal = () => {
     <>
       {/* <!-- Button trigger modal -->  */}
       <Button 
-          variant="primary" 
+          variant="secondary" 
           onClick={() => setShow(true)} // open modal by setting show to true
       >
-        Launch demo modal
+        <div className="d-flex align-items-center"> {/* Align icon & text vertically centered */}
+          <FaUser className='icon' />               {/* Font Awesome user icon */}
+          <div>Add Client</div>                     {/* Label text */}
+        </div>
       </Button>
 
         {/* <!-- Modal --> */}
