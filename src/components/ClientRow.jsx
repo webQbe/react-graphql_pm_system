@@ -10,9 +10,29 @@ const ClientRow = ({ client }) => { // Receive client object as a prop
   const [ deleteClient ] = useMutation(
                                       // Execute DELETE_CLIENT mutation using current client.id
                                       DELETE_CLIENT, {
-                                      variables: { id: client.id },
-                                      // Refetch clients query after deletion
-                                      refetchQueries: [{ query: GET_CLIENTS }],
+                                      variables: { id: client.id }, // Pass ID of the client to be deleted
+                                      // Trigger custom function to directly manipulate Apollo’s normalized cache
+                                      update(cache, { data: { deleteClient } }) {
+                                      /* This updates the UI immediately without waiting for a round trip to the server
+                                        - Backend client-deletion is done by useMutation 
+                                        - Frontend-cache-update is done by this update() method to reflect the changes immediately in the UI
+                                      */
+                                      try  { 
+                                            const { clients } = cache.readQuery({ query: GET_CLIENTS }) // Read existing clients data from cache
+                                            // Write new list of clients to cache
+                                            cache.writeQuery({ 
+                                              query: GET_CLIENTS,
+                                              data: {
+                                                // Exclude deleted client
+                                                clients: clients.filter((client) => client.id !== deleteClient.id),
+                                              },
+                                            })
+                                      } 
+                                      catch (err) { // Guard against readQuery errors (e.g. if the cache isn’t populated yet)
+
+                                              console.warn('Cache not ready for GET_CLIENTS');
+                                          }    
+                                      },
                                     })
 
   return (
