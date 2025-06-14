@@ -4,6 +4,7 @@ import { BrowserRouter as Router,
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
 import Header from './components/Header'
 import Home from './pages/Home'
+import NotFound from './pages/NotFound'
 import './App.css' // for global and component styles
 
 // Replace existing data with incoming data 
@@ -50,11 +51,15 @@ function App() {
           <Header />                     
           <div className="container">    
             <Routes>                     {/* <Routes> defines your route configuration */}
+              
               {/* When the browser is at /, render Home component */}
-              <Route 
-                path='/'            
-                element={<Home />} 
-              /> 
+              <Route  path='/' element={<Home />} /> 
+
+              <Route path='*' element={<NotFound />} /> {/* Routing to Catch All Undefined Paths 
+                This line catches all routes not matched by previous <Route> entries
+                It must be last in the <Routes> block
+              */}
+
             </Routes>
           </div>
         </Router>
