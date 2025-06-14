@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { BrowserRouter as Router, 
+         Route, 
+         Routes } from 'react-router-dom' // For Client-Side Routing
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
 import Header from './components/Header'
-import Clients from './components/Clients'
-import Projects from './components/Projects'
-import AddClientModal from './components/AddClientModal'
+import Home from './pages/Home'
 import './App.css' // for global and component styles
 
 // Replace existing data with incoming data 
@@ -45,12 +45,19 @@ function App() {
   return (
     <>
       <ApolloProvider client={client}> {/* wraps your app & injects the client into context */}
-        <Header />                     {/* <Header /> component at the top */}
-        <div className="container">    {/* centered container */}
-          <Projects />
-          <Clients />
-          <AddClientModal />
-        </div>
+        
+        <Router>                         {/* <Router> sets up the client-side router */}
+          <Header />                     
+          <div className="container">    
+            <Routes>                     {/* <Routes> defines your route configuration */}
+              {/* When the browser is at /, render Home component */}
+              <Route 
+                path='/'            
+                element={<Home />} 
+              /> 
+            </Routes>
+          </div>
+        </Router>
       </ApolloProvider>
     </>
   )
