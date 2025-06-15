@@ -28,4 +28,15 @@ const ADD_PROJECT = gql`
                                                                                  }
                                                     }`
 
-export { ADD_PROJECT }
+// Define GraphQL mutation to delete a project                                                    
+/*  Take an id of a project and delete it 
+    return deleted project's id   */                                                  
+const DELETE_PROJECT = gql`
+                        mutation deleteProject($id: ID!){
+                                            deleteProject(id: $id){
+                                                                    id
+                                                                }
+                        }`                                                   
+
+
+export { ADD_PROJECT, DELETE_PROJECT }
