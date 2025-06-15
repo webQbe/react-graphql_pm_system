@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom" // handles navigation without full reload
 
 const ProjectCard = ({ project }) => { // Receive project data as a prop
   return (
@@ -7,17 +7,19 @@ const ProjectCard = ({ project }) => { // Receive project data as a prop
         <div className="card mb-3">
             <div className="card-body">
                 <div className="d-flex justify-content-between align-items-center">  
+
                     {/* Show Project Name */}
                     <h5 className="card-title">
                         { project.name }
                     </h5>
+
                     {/* Show View Button */}
-                    <a  
+                    <Link  
                         className='btn btn-light' 
-                        href={`/projects/${project.id}`}
+                        to={`/project/${project.id}`}
                     >
                         View
-                    </a>
+                    </Link>
 
                     {/* Show Project Status */}
                     <p className="small">

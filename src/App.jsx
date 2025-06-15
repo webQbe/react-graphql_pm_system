@@ -4,6 +4,7 @@ import { BrowserRouter as Router,
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
 import Header from './components/Header'
 import Home from './pages/Home'
+import Project from './pages/Project'
 import NotFound from './pages/NotFound'
 import './App.css' // for global and component styles
 
@@ -54,6 +55,12 @@ function App() {
               
               {/* When the browser is at /, render Home component */}
               <Route  path='/' element={<Home />} /> 
+
+              {/* Define a route like /project/123 */}
+              <Route 
+                path='/project/:id' // :id param becomes available in useParams()
+                element={ <Project /> } 
+              />
 
               <Route path='*' element={<NotFound />} /> {/* Routing to Catch All Undefined Paths 
                 This line catches all routes not matched by previous <Route> entries
