@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client'
 import { GET_PROJECT } from '../queries/projectQueries'
 import ClientInfo from '../components/ClientInfo'
 import DeleteProjectButton from '../components/DeleteProjectButton'
+import EditProjectForm from '../components/EditProjectForm'
 import Spinner from '../components/Spinner'
  
 const Project = () => {
@@ -39,6 +40,10 @@ const Project = () => {
 
                 {/* Render associated client's details via <ClientInfo />  */}
                 <ClientInfo client={ data.project.client } />
+
+                <EditProjectForm 
+                    project={data.project} // Pass project object retrieved via GraphQL
+                /> 
 
                 {/* Project delete button */}
                 <DeleteProjectButton 

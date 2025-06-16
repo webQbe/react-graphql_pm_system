@@ -38,5 +38,29 @@ const DELETE_PROJECT = gql`
                                                                 }
                         }`                                                   
 
+// Define GraphQL mutation to update a project 
+const UPDATE_PROJECT = gql`
+                        mutation updateProject(
+                                    $id: ID!,
+                                    $name: String!, 
+                                    $description: String!,  
+                                    $status: ProjectUpdateStatus!) {
+                                                    updateProject(
+                                                            id: $id, 
+                                                            name: $name, 
+                                                            description: $description, 
+                                                            status: $status) {
+                                                                                    id
+                                                                                    name
+                                                                                    description
+                                                                                    status
+                                                                                    client {
+                                                                                                id
+                                                                                                name
+                                                                                                email
+                                                                                                phone
+                                                                                            }
+                                                                                 }
+                                                    }`
 
-export { ADD_PROJECT, DELETE_PROJECT }
+export { ADD_PROJECT, DELETE_PROJECT, UPDATE_PROJECT }
